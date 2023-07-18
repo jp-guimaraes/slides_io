@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="en">
+  <head>
+	<meta name="generator" content="Hugo 0.98.0" />
+    <meta charset="utf-8">
+<title>Entradas e Saídas</title>
+
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="/slides_io/reveal-js/css/reset.css">
+<link rel="stylesheet" href="/slides_io/reveal-js/css/reveal.css"><link rel="stylesheet" href="/slides_io/robot-lung.css" id="theme"><link rel="stylesheet" href="/slides_io/highlight-js/color-brewer.min.css">
+    
+  </head>
+  <body>
+    
+    <div class="reveal">
+      <div class="slides">
+  
+
+    <section><h1 id="entradas-e-saídas">Entradas e Saídas</h1>
+<p>Operação e Organização de Computadores</p>
+<p><a href="https://jp-guimaraes.github.io/">🌐 João Paulo Guimarães</a></p>
+</section>
+
+  
+
+    <section>
+
+<section data-shortcode-section>
+<h1 id="objetivos">Objetivos</h1>
+<p>Conhecer a organização básica de entrada e saída</p>
+<p>Conhecer os métodos de transferências de dados</p>
+
+</section>
+</section>
+    <section>
+
+<section data-shortcode-section>
+<h1 id="principios-básicos">Principios básicos</h1>
+</section><section>
+<p>Classificação quanto ao sentido do <strong>fluxo de dados</strong></p>
+<p>Dispositivos (periféricos) de Entrada</p>
+<p>Dispositivos de Saída</p>
+<p>Dispositivos Híbridos</p>
+</section><section>
+<p>Estudando a comunicação <strong>CPU - Periféricos</strong></p>
+</section><section>
+<h3 id="problemas">Problemas</h3>
+<p>Cada dispositivo tem:</p>
+<ul>
+<li>Conexões físicas</li>
+<li>Sentido de conexão</li>
+<li>Velocidades diferentes</li>
+<li>Requisitos diferentes</li>
+<li>Fabricantes diferentes</li>
+</ul>
+</section><section>
+<h3 id="possíveis-soluções">Possíveis soluções</h3>
+<p>Hardware controlador dedicado</p>
+<p>Interface CPU periférico</p>
+
+</section>
+</section>
+    <section>
+
+<section data-shortcode-section>
+<h1 id="estudo-de-caso">Estudo de caso</h1>
+</section><section>
+<p>Comunicação CPU - HD</p>
+</section><section>
+<p>Função da Controladora</p>
+<p>Conexão física</p>
+<p>Conversão de protocolos de comunicação</p>
+<p>Conversão de tipos de dados</p>
+<p>Buffer - armazenamento temporário</p>
+</section><section>
+<p>Exemplo 2: Comunicação CPU - Teclado/mouse</p>
+</section><section>
+<h1 id="cpu---controlador">CPU - Controlador</h1>
+<p>Comunicação via software</p>
+</section><section>
+<p>antigamente&hellip;</p>
+<p>BIOS</p>
+</section><section>
+<p>Atualmente</p>
+<p>Driver</p>
+<p>Sistema Operacional: Gerenciador de dispositivos</p>
+<p>Hardware: Chipset</p>
+
+</section>
+</section>
+    <section>
+
+<section data-shortcode-section>
+<h1 id="comunicação">Comunicação</h1>
+</section><section>
+<p><strong>Requisitos</strong></p>
+<p>Endereço</p>
+<p>Comandos</p>
+<p>Dados</p>
+</section><section>
+<h3 id="modelos-de-troca-de-dados">Modelos de troca de dados</h3>
+<p>Assíncrono</p>
+<p>Síncrono</p>
+<p>Semi-síncrono</p>
+</section><section>
+<h3 id="assíncrono">Assíncrono</h3>
+<p>Dois sistemas digitais autônomos</p>
+<p>Clocks não sincronizados</p>
+</section><section>
+<h3 id="síncrona">Síncrona</h3>
+<p>Mesmo Clock para CPU e periférico</p>
+<p>Clock diferente de frequência</p>
+<p>Tempo de transferência calculado</p>
+</section><section>
+<h3 id="semi-síncrona">Semi-síncrona</h3>
+<p>Mesmo Clock para CPU e periférico</p>
+<p>Clock diferente de frequência</p>
+<p>Tempo de transferência desconhecido</p>
+
+</section>
+</section>
+    <section>
+
+<section data-shortcode-section>
+<h1 id="endereçamento">Endereçamento</h1>
+</section><section>
+<p>Em memória:
+- reserva de posições específicas de memória para periféricos</p>
+<p>Em portas de entrada/saída
+- Acesso direto ao dispositivo</p>
+</section><section>
+<h1 id="comunicação">Comunicação</h1>
+<p>Modos de transferência</p>
+</section><section>
+<p>Requisitos:</p>
+<ul>
+<li>Respostas rápidas a eventos críticos</li>
+<li>Não sobrecarregar CPU com IO</li>
+</ul>
+</section><section>
+<h3 id="modos">Modos</h3>
+<p>Comunicação <strong>programada</strong></p>
+<p>Rotina é responsável pela transferência de dados para o dispositivo de I/O</p>
+<p>Comunicação <strong>por interrupução</strong></p>
+<p>Hardware sinaliza quando é hora de fazer uma transferência de dados</p>
+<p><strong>DMA</strong> - Direct Memory Access</p>
+<p>Libera a CPU da tarefa de aguardar por ocorrência de evento de IO -&gt; Terceirização da cópia de dados</p>
+</section><section>
+<h3 id="programado">Programado</h3>
+<p>IO controlado pela CPU</p>
+<ul>
+<li>Espera ocupada (modo bloqueado)</li>
+<li>Pooling (verificação periódica)</li>
+<li>interjeição ( ou lógico entre todos os flags para otimizar o pooling)</li>
+</ul>
+</section><section>
+<h3 id="interrupção">Interrupção</h3>
+<p>Tempo desperdiçado com múltiplos testes/espera ocupada</p>
+<p>Aviso a CPU -&gt; Requisição do periférico</p>
+</section><section>
+<h3 id="dma">DMA</h3>
+<p>Transferência direta à memória</p>
+<p><a href="https://www.inf.pucrs.br/flash/orgarq/aulas/essd.pdf">Leitura Complementar</a></p>
+
+</section>
+</section>
+    <section>
+
+<section data-shortcode-section>
+<h1 id="estudo-de-caso">Estudo de caso</h1>
+</section><section>
+<p><strong>USB</strong></p>
+<p>Universal Serial Bus</p>
+<p>Barramento serial Universal</p>
+</section><section>
+<ol>
+<li><strong>Transferência de Controle</strong></li>
+<li><strong>Transferências em Massa</strong></li>
+<li><strong>Transferências de Interrupção</strong></li>
+<li><strong>Transferências Isócronas</strong>:</li>
+</ol>
+</section><section>
+<p><strong>Transferência de Controle</strong></p>
+<ul>
+<li>Usada para tarefas de configuração e comando.</li>
+<li>Inicializa o dispositivo quando é conectado.</li>
+<li>Pode ser usada para comandos ad hoc durante a operação normal.</li>
+</ul>
+</section><section>
+<p><strong>Transferências em Massa</strong></p>
+<ul>
+<li>Usada para transferir grandes quantidades de dados não cronometrados.</li>
+<li>Garante a entrega dos dados, mas não o tempo de entrega.</li>
+<li>Normalmente usada por dispositivos que precisam mover grandes quantidades de dados em um tempo não crítico, como impressoras e scanners.</li>
+</ul>
+</section><section>
+<p><strong>Transferências de Interrupção</strong></p>
+<ul>
+<li>Usada para pequenas quantidades de dados com tempo sensível.</li>
+<li>Pequenos atrasos são aceitáveis, mas a entrega é garantida.</li>
+<li>Normalmente usada por dispositivos como teclados ou mouses.</li>
+</ul>
+</section><section>
+<p><strong>Transferências Isócronas</strong></p>
+<ul>
+<li>Usada para transmissões em tempo real.</li>
+<li>Os dados precisam ser entregues em um ritmo específico.</li>
+<li>Este tipo de transferência garante a entrega no tempo, mas não garante que todos os dados serão entregues.</li>
+<li>Normalmente usada para áudio ou vídeo.</li>
+</ul>
+
+</section>
+</section>
+
+</div>
+      
+
+    </div>
+<script type="text/javascript" src=/slides_io/reveal-hugo/object-assign.js></script>
+
+<a href="/slides_io/reveal-js/css/print/" id="print-location" style="display: none;"></a>
+<script type="text/javascript">
+  var printLocationElement = document.getElementById('print-location');
+  var link = document.createElement('link');
+  link.rel = 'stylesheet';
+  link.type = 'text/css';
+  link.href = printLocationElement.href + (window.location.search.match(/print-pdf/gi) ? 'pdf.css' : 'paper.css');
+  document.getElementsByTagName('head')[0].appendChild(link);
+</script>
+
+<script type="application/json" id="reveal-hugo-site-params">null</script>
+<script type="application/json" id="reveal-hugo-page-params">{"custom_theme":"robot-lung.css","highlight_theme":"color-brewer","margin":0.2,"transition":"slide","transition_speed":"fast"}</script>
+
+<script src="/slides_io/reveal-js/js/reveal.js"></script>
+
+<script type="text/javascript">
+  
+  
+  function camelize(map) {
+    if (map) {
+      Object.keys(map).forEach(function(k) {
+        newK = k.replace(/(\_\w)/g, function(m) { return m[1].toUpperCase() });
+        if (newK != k) {
+          map[newK] = map[k];
+          delete map[k];
+        }
+      });
+    }
+    return map;
+  }
+  
+  var revealHugoDefaults = { center: true, controls: true, history: true, progress: true, transition: "slide" };
+  var revealHugoSiteParams = JSON.parse(document.getElementById('reveal-hugo-site-params').innerHTML);
+  var revealHugoPageParams = JSON.parse(document.getElementById('reveal-hugo-page-params').innerHTML);
+  
+  var options = Object.assign({},
+    camelize(revealHugoDefaults),
+    camelize(revealHugoSiteParams),
+    camelize(revealHugoPageParams));
+  Reveal.initialize(options);
+</script>
+
+
+  
+  
+  <script type="text/javascript" src="/slides_io/reveal-js/plugin/markdown/marked.js"></script>
+  
+  <script type="text/javascript" src="/slides_io/reveal-js/plugin/markdown/markdown.js"></script>
+  
+  <script type="text/javascript" src="/slides_io/reveal-js/plugin/highlight/highlight.js"></script>
+  
+  <script type="text/javascript" src="/slides_io/reveal-js/plugin/zoom-js/zoom.js"></script>
+  
+  
+  <script type="text/javascript" src="/slides_io/reveal-js/plugin/notes/notes.js"></script>
+
+
+
+    
+    
+  </body>
+</html>
